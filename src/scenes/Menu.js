@@ -8,15 +8,16 @@ class Menu extends Phaser.Scene {
         this.load.audio('sfx_select', './assets/blip_select12.wav');
         this.load.audio('sfx_explosion', './assets/explosion38.wav');
         this.load.audio('sfx_rocket', './assets/rocket_shot.wav');
+        this.load.spritesheet('background', './assets/the.gif', {frameWidth: 640, frameHeight: 480, startFrame: 0, endFrame: 4});
     }
 
     create() {
         // menu display
         let menuConfig = {
-            fontFamily: 'Courier',
+            fontFamily: 'OPTIMA',
             fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
+            backgroundColor: '#FF0000',
+            color: '#000',
             align: 'right',
             padding: {
                 top: 5,
@@ -30,11 +31,13 @@ class Menu extends Phaser.Scene {
         let centerY = game.config.height/2;
         let textSpacer = 64;
 
-        this.add.text(centerX, centerY- textSpacer, 'ROCKET PATROL', menuConfig).setOrigin(0.5);
-        this.add.text(centerX, centerY, 'Use ←→ arrows to move & (F) to Fire', menuConfig).setOrigin(0.5);
-        menuConfig.backgroundColor = '#00FF00';
-        menuConfig.color = '#000';
-        this.add.text(centerX, centerY + textSpacer, 'Press ← for Easy or → for Hard', menuConfig).setOrigin(0.5);  
+        this.background = this.add.tileSprite(0, 0, 640, 450, 'background').setOrigin(0, 0);
+
+        //this.add.text(centerX, centerY- textSpacer, 'CROSSY ROCKETS!! AVOID THE SPACESHIPS', menuConfig).setOrigin(0.5);
+        //this.add.text(centerX, centerY, 'Use ←→ arrows to move and ↓ to stop', menuConfig).setOrigin(0.5);
+        //menuConfig.backgroundColor = '#FF0000';
+        //menuConfig.color = '#000';
+        //this.add.text(centerX, centerY + textSpacer, 'Press ← for Easy or → for Hard', menuConfig).setOrigin(0.5);  
         
         // define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -45,8 +48,8 @@ class Menu extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
             // easy mode
             game.settings = {
-                spaceshipSpeed: 3,
-                gameTimer: 60000    
+                spaceshipSpeed: 5,
+                gameTimer: 45000    
             }
             this.sound.play('sfx_select');
             this.scene.start("playScene");    
@@ -54,8 +57,8 @@ class Menu extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
             // hard mode
             game.settings = {
-                spaceshipSpeed: 4,
-                gameTimer: 45000    
+                spaceshipSpeed: 7,
+                gameTimer: 30000    
             }
             this.sound.play('sfx_select');
             this.scene.start("playScene");    
